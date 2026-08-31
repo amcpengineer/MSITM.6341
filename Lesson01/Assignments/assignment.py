@@ -43,7 +43,21 @@ def calculate(num_one, num_two, operator):
     """
     # TODO: Implement operator handling with if/elif/else.
     # TODO: Add division-by-zero protection.
-    pass
+    if operator == "+":
+        return num_one + num_two
+    elif operator == "-":
+        return num_one - num_two
+    elif operator == "*":
+        return num_one * num_two
+    elif operator == "/":
+        if num_two != 0:
+            return num_one / num_two
+        else:
+            return "Error: number_two cannot be zero"
+    else:
+        return "Error: operator must be +, -, *, /"
+
+pass
 
 
 # =============================
@@ -74,10 +88,27 @@ def rectangle_area(length, width):
         float: Computed area.
     """
     # TODO: Validate inputs and return the computed area.
-    pass
+    if length <= 0 or width <= 0:
+        return "Error: length and width must be positive"
+    else:
+        return length * width
+pass
 
 
 if __name__ == "__main__":
     # TODO: Collect inputs and call `calculate`.
+    print("Let's start with the numbers for the calculation.")
+    num_one = float(input("Enter a number: "))
+    num_two = float(input("Enter a second number: "))
+    operator = input("Enter a operator (+, -, *, /): ")
+    result = calculate(num_one, num_two, operator)
+    print("The result is: ", result)
+
     # TODO: Collect inputs and call `rectangle_area`.
+    print("Let's continue with the rectangle area calculation.")
+    length = float(input("Enter a length: "))
+    width = float(input("Enter a second width: "))
+    result_area = rectangle_area(length, width)
+    print("The rectangle area result is: ", result_area)
+
     pass
