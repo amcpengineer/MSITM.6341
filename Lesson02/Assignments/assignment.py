@@ -57,6 +57,18 @@ def play_round(user_choice, computer_choice):
         str: "win", "lose", or "tie".
     """
     # TODO: Implement round outcome logic.
+    beats = {
+        "Rock": "Scissors",
+        "Paper": "Rock",
+        "Scissors": "Paper",
+    }
+
+    if user_choice == computer_choice:
+        return "Tie"
+    elif beats[user_choice] == computer_choice:
+        return "User wins"
+    return "Computer wins"
+
     pass
 
 
@@ -71,6 +83,11 @@ def get_user_choice(valid_choices):
         str: Valid player choice.
     """
     # TODO: Prompt user until a valid option is entered.
+    while True:
+        user_input = input(f"Choose one of {valid_choices}: ").strip().title()
+        if user_input in valid_choices:
+            return user_input
+        print(f"{user_input} is not valid. Please choose from {valid_choices}.")
     pass
 
 
@@ -84,14 +101,43 @@ def run_game():
     choices = ["Rock", "Paper", "Scissors"]
     user_score = 0
     computer_score = 0
+    round_number = 1
+    ties = 0
 
     # TODO: Implement main gameplay loop and score tracking.
     # TODO: Print a final summary when user exits.
     _ = random.choice(choices)  # Starter line to show random usage.
     _ = user_score, computer_score
+    while True:
+        print(f"\nRound {round_number}")
+        user_choice = get_user_choice(choices)
+        computer_choice = random.choice(choices)
+        print(f"You chose {user_choice}. Computer chose {computer_choice}.")
+
+        result = play_round(user_choice, computer_choice)
+        print(result)
+
+        if result == "User wins":
+            user_score += 1
+        elif result == "Computer wins":
+            computer_score += 1
+        elif result == "Tie":
+            ties += 1
+
+        round_number += 1
+
+        play_again = input("Play another round? (yes/no): ").strip().lower()
+        if play_again != "yes":
+            break
+
+    print("\nFinal Score")
+    print(f"You: {user_score}")
+    print(f"Computer: {computer_score}")
+    print(f"Ties: {ties}")
     pass
 
 
 if __name__ == "__main__":
     # TODO: Call `run_game()`.
+    run_game()
     pass
