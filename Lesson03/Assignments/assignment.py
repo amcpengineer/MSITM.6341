@@ -11,6 +11,7 @@ Objective:
 - Refactor a command-line game (or similar app) using class-based design
   and separate modules.
 """
+import secrets
 
 # =============================
 # Assignment Prompt
@@ -32,19 +33,31 @@ class GameManager:
     def __init__(self):
         """Initialize game configuration and score tracking."""
         # TODO: Add attributes for score, valid choices, and round count.
+        self.score = 0
+        self.valid_choices = ["Rock", "Paper", "Scissors"]
+        self.round_count = 0
         pass
 
     def play_round(self, user_choice):
-        """
-        Process one round and update state.
+        beats = {
+            "Rock": "Scissors",
+            "Paper": "Rock",
+            "Scissors": "Paper",
+        }
 
-        Args:
-            user_choice (str): Player input.
+        user_choice = user_choice.strip().capitalize()
+        if user_choice not in self.valid_choices:
+            return "Invalid choice"
 
-        Returns:
-            str: Round result string.
-        """
-        # TODO: Add round logic and return a result.
+        self.round_count += 1
+        computer_choice = secrets.choice(self.valid_choices)
+
+        if user_choice == computer_choice:
+            return f"Tie. Both chose {computer_choice}"
+        if beats[user_choice] == computer_choice:
+            self.score += 1
+            return f"User wins. {user_choice} beats {computer_choice}"
+        return f"Computer wins. {computer_choice} beats {user_choice}"
         pass
 
     def summary(self):
@@ -55,6 +68,7 @@ class GameManager:
             str: Summary for player and computer score.
         """
         # TODO: Build and return summary message.
+        return f"Player score = {self.score}/ Over this rounds = {self.round_count}"
         pass
 
 
@@ -80,6 +94,8 @@ class Logger:
             message (str): Text line to write.
         """
         # TODO: Append message to file using `with open(..., "a")`.
+        with open(self.filename, "a", encoding="utf-8") as file:
+            file.write(message + "\n")
         pass
 
 
@@ -90,6 +106,30 @@ def main():
     # TODO: Initialize GameManager and Logger.
     # TODO: Build input loop and call play_round().
     # TODO: Print final summary.
+    game = GameManager()
+    logger = Logger("game_log.txt")
+    logger.write_line("Game started")
+
+    print("Rock, Paper, Scissors")
+    print("Type Rock, Paper, or Scissors. Type Q to quit.")
+
+    while True:
+        user_choice = input("\nYour choice: ").strip()
+
+        if user_choice.lower() == "q":
+            break
+
+        result = game.play_round(user_choice)
+        print(result)
+
+        if result != "Invalid choice":
+            logger.write_line(f"Round {game.round_count}: {result}")
+
+    summary = game.summary()
+    print("\nGame over.")
+    print(summary)
+    logger.write_line(summary)
+    logger.write_line("Game ended")
     pass
 
 

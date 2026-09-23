@@ -1,0 +1,12 @@
+Game started
+Round 1: Computer wins. Paper beats Rock
+Round 2: Tie. Both chose Paper
+Round 3: Tie. Both chose Rock
+Round 4: User wins. Paper beats Rock
+Round 5: User wins. Scissors beats Paper
+Rounds played: 5, Wins: 2
+Game ended
+Game started
+Round 1: Computer wins. Paper beats Rock
+Player score = 0/ Over this rounds = 1
+Game ended
