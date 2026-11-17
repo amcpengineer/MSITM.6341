@@ -268,6 +268,7 @@ def integrated_exercise():
 # Main Execution
 # ------------------------------
 def main():
+    demo_web_requests()
     # The new demo directory created by the file demo_os_module exercise
     new_dir = demo_os_module()
     # Change the working directory to the new directory

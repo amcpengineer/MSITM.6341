@@ -49,21 +49,41 @@ def pandas_numpy_assignment():
         "English": [85, 87, 90, 82, 88],
     }
     # TODO: Convert `data` into a DataFrame and print preview rows.
+    df = pd.DataFrame(data)
+    print(df.head())
 
     # Step 2: Convert score columns into a NumPy array.
     # TODO: Select numeric subject columns and call `.to_numpy()`.
+    array_math = df["Math"].to_numpy()
+    array_science = df["Science"].to_numpy()
+    array_english = df["English"].to_numpy()
+
+    array_scores = df[["Math","Science","English"]].to_numpy()
+    print(f"This is the Math Array: {array_math}")
+    print(f"This is the Science Array: {array_science}")
+    print(f"This is the English Array: {array_english}")
+    print(f"This is the merged score: {array_scores}")
 
     # Step 3: Compute per-student averages with NumPy.
     # TODO: Use a vectorized NumPy mean across each row.
+    students_average = np.mean(array_scores, axis=1)
+    for name, avg in zip(df["Student"], students_average):
+        print(f"{name}: {avg:.2f}")
 
     # Step 4: Add average scores back into the DataFrame.
     # TODO: Create a new column such as `Average`.
+    df["Average"] = students_average
+    print(df.head())
 
     # Step 5: Compute class-level subject averages with pandas.
     # TODO: Calculate mean values for Math, Science, and English.
+    subject_average = df[["Math","Science","English"]].mean()
+    print(subject_average)
 
     # Step 6: Filter students above a threshold.
     # TODO: Show students with Math above class Math average.
+    above_threshold = df[df["Math"] > subject_average["Math"]]
+    print(above_threshold)
     _ = np  # Keep linter quiet until TODOs are implemented.
 
 
